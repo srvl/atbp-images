@@ -40,7 +40,7 @@ jobs:
           - 26
     steps:
       - name: Git checkout for Github repository workspace
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup QEMU for multiarch builds
         uses: docker/setup-qemu-action@v3
