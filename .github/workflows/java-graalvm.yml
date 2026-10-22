@@ -60,4 +60,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           file: ./java-graalvm/${{ matrix.tag }}/Dockerfile
           push: true
-          tags: ghcr.io/doom2615/atbp-images:java_${{ matrix.tag }}_graalvm
+          tags: ghcr.io/srvl/atbp-images:java_${{ matrix.tag }}_graalvm

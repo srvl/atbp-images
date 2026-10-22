@@ -2,7 +2,7 @@
 FROM        eclipse-temurin:8u312-b07-jdk-focal
 
 LABEL       author="Softwarenoob" maintainer="admin@softwarenoob.com"
-LABEL       org.opencontainers.image.source="https://github.com/Software-Noob/pterodactyl-images"
+LABEL       org.opencontainers.image.source="https://github.com/srvl/atbp-images"
 LABEL       org.opencontainers.image.licenses="MIT"
 
 RUN         apt-get update -y \
@@ -15,6 +15,10 @@ RUN         apt-get update -y \
 ENV         LC_ALL=en_US.UTF-8
 ENV         LANG=en_US.UTF-8
 ENV         LANGUAGE=en_US.UTF-8
+
+# CVE-2026-91403: distrust the compromised eMudhra intermediates until the JDK vendor ships its fix
+COPY        ./emudhra-blocked.certs /tmp/emudhra-blocked.certs
+RUN         F="$JAVA_HOME/lib/security/blocked.certs"; [ -f "$F" ] || F="$JAVA_HOME/jre/lib/security/blacklisted.certs";             test -f "$F" && echo >> "$F" && cat /tmp/emudhra-blocked.certs >> "$F"             && [ "$(grep -cxF -f /tmp/emudhra-blocked.certs "$F")" -ge 16 ] && rm /tmp/emudhra-blocked.certs
 
 USER        container
 ENV         USER=container HOME=/home/container
