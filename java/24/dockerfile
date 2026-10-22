@@ -1,4 +1,4 @@
-FROM        eclipse-temurin:23-jdk
+FROM        eclipse-temurin:24-jdk
 
 LABEL       author="Softwarenoob" maintainer="admin@softwarenoob.com"
 LABEL       org.opencontainers.image.source="https://github.com/srvl/atbp-images"
