@@ -12,6 +12,9 @@ RUN         microdnf update \
 ENV         LC_ALL=en_US.UTF-8
 ENV         LANG=en_US.UTF-8
 ENV         LANGUAGE=en_US.UTF-8
+# CVE-2026-114938 (Java4Shell): the AVX-512 Base64 decode intrinsic can write past its buffer on x86 CPUs with
+# AVX-512 VBMI (Zen 4/5, Ice Lake+). Off until the JDK vendor ships a fixed build; the flag exists on every arch.
+ENV         JDK_JAVA_OPTIONS=-XX:-UseBASE64Intrinsics
 
 # CVE-2026-91403: distrust the compromised eMudhra intermediates until the JDK vendor ships its fix
 COPY        ./emudhra-blocked.certs /tmp/emudhra-blocked.certs
